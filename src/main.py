@@ -9,11 +9,13 @@ from disolver import*
 
 
 #Realiza operacion con archivo EXCEL
+
+print ("Realizando Proceso para Fuentes Moviles")
 folder = os.path.join("..", "data")
 
 
-listaExcel (folder)
-listaCSV(folder)
+#listaExcel (folder)
+#listaCSV(folder)
 flows = os.path.join('..', 'out', 'promFinal.csv')
 category = os.path.join ('..', 'BD', 'CATEGORY.xlsx')
 disolver(flows, category)
