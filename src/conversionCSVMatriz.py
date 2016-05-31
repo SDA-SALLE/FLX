@@ -12,19 +12,12 @@ import numpy as np
 import os
 
 
-#Enlista los archivos CSV de la carpeta.
 def listaCSV(direccion):
-   	#Variable para la ruta al directorio
 	path = os.path.join(direccion,'')
-	#print direccion
 
-	#Lista vacia para incluir los ficheros
 	lstFilesEmissions = []
 
-	#Lista con todos los ficheros del directorio:
-	lstDir = os.walk(path)   #os.walk()Lista directorios y ficheros
-	datos = {}
-	#Crea una lista de los ficheros que existen en el directorio y los incluye a la lista.
+	lstDir = os.walk(path)  
 	for root, dirs, files in lstDir:
 	    for fichero in files:
 	        (nombreFichero, extension) = os.path.splitext(fichero)
@@ -33,26 +26,26 @@ def listaCSV(direccion):
 
 	print "El numero de archivos en CSV es: ", len(lstFilesEmissions)
 
-
-	lectura(lstFilesEmissions, direccion, datos)
+	data = {}
+	lectura(lstFilesEmissions, direccion, data)
 
 	#Hace promedio estacion, fecha, hora
 
-	estacion = datos.keys()
+	estacion = data.keys()
 	for est in estacion:
-		fechas = datos[est].keys()
-		primerDia =  datos[est][fechas[0]]
+		fechas = data[est].keys()
+		primerDia =  data[est][fechas[0]]
 
 		#print primerDia
 
 		for i in range(1, len(fechas)):
-			datosDia = datos[est][fechas[i]]
-			keys = datosDia.keys()
+			dataDia = data[est][fechas[i]]
+			keys = dataDia.keys()
 			for key in keys:
-				datosHora = datosDia[key]
-				types = datosHora.keys()			
+				dataHora = dataDia[key]
+				types = dataHora.keys()			
 				for tipo in types:
-					primerDia[key][tipo] += datosHora[tipo]		
+					primerDia[key][tipo] += dataHora[tipo]		
 		
 
 		hora = primerDia.keys()
@@ -64,7 +57,7 @@ def listaCSV(direccion):
 				primerDia[hour][flow] = primerDia[hour][flow]/len(fechas)
 
 
-		datos[est] = primerDia
+		data[est] = primerDia
 		
 		for hour in hora: 
 			flows =  primerDia[hour].keys()
@@ -74,20 +67,19 @@ def listaCSV(direccion):
 			
 			primerDia[hour]['TOTAL'] = suma
 
-		datos[est] = primerDia
+		data[est] = primerDia
 
-	write(datos, direccion)
+	write(data, direccion)
 	
 
-#Lee los datos de cada archivo CSV y los pone en una matriz
-def lectura(lstFilesEmissions, direccion, datos):
+def lectura(lstFilesEmissions, direccion, data):
 	tamano = len (lstFilesEmissions)
 
 	for emissions in lstFilesEmissions[0:]:
-		direccionuno = os.path.join(direccion,'') #Para linux cambiar por '/'
+		direccionuno = os.path.join(direccion,'')
 		direccioncsv = direccionuno + emissions
 		matriz = np.genfromtxt(direccioncsv, delimiter='|', dtype=None)
 
-		a = len(matriz) #Saca el tamano o longitud completa de la matriz
-		tratamiento(matriz, a, datos)
+		a = len(matriz)
+		tratamiento(matriz, a, data)
 

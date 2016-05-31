@@ -94,7 +94,6 @@ def brinding(flows, links, noun):
 				 	entryVehicle[headFlows].append(MFlows[y][x])
 
 	folder = os.path.join("..", 'data', 'datalink', '')
-	#print data
 	writebinding(folder, data, noun)
 
 def brindingsecondary(flows, links):
@@ -113,8 +112,7 @@ def brindingsecondary(flows, links):
 
 	headData = Mdata[0,:] 
 	headFlows = MFlows[0,:]
-	#print headData
-	
+
 	index = 0
 	for name in headData: 
 		if name == 'FID_LINK': 
@@ -193,7 +191,6 @@ def brindingsecondary(flows, links):
 	
 	for ID in FID:
 		clasifi = data[ID]['link']['CLASIFI_SU'][0]
-		#print clasifi
 		types = data[ID]['flows'].keys()
 		for typ in types:
 			hour = data[ID]['flows'][typ].keys()
@@ -237,19 +234,16 @@ def brindingfinality(folderbrinding):
 	listHabil = []
 	listNHabil = []
 	
-	#Lista con todos los ficheros del directorio:
-	lstDir = os.walk(folderbrinding)   #os.walk()Lista directorios y ficheros
+	lstDir = os.walk(folderbrinding)
 	datos = {}
 	lstFilesEmissions = []
 	
-	#Crea una lista de los ficheros que existen en el directorio y los incluye a la lista.
 	for root, dirs, files in lstDir:
 	    for fichero in files:
 	        (nombreFichero, extension) = os.path.splitext(fichero)
 	        if(extension == ".csv"):
 	        	lstFilesEmissions.append(nombreFichero+extension)
-	
-	#Clasificacion Archivos
+
 	for name in lstFilesEmissions: 
 		index = 0
 		for l in name:

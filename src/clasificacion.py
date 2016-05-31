@@ -1,11 +1,11 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*- 
 
+#!/usr/bin/env python
 #Created by @ceapalaciosal
 #Codigo bajo Creative Commons
 import json
 
-#Limpieza de la matriz, descartando las filas y columnas que no se necesitan. 
+
 def tratamiento(matriz, a, datos):
 	
 	dia = matriz[a-1,0]
@@ -19,12 +19,11 @@ def tratamiento(matriz, a, datos):
 	
 
 	head = matriz[2,:]
-	colHora = 0  #indice de la columna del periodo
+	colHora = 0 
 	colSentido = 0
 	colData = 0
 	colObservaciones = 0
 	index = 0
-	#print head
 	for value in head:
 		if value == "PERIODO" or value == "PERÍODO": #La columna del periodo(HORA...)
 			colHora = index
@@ -54,11 +53,10 @@ def clasificaciondatos(matriz, dia, fecha, nodo, direccion, datos, head, colHora
 
 	
 	#Obtenemos la informacion del archivo 
-	tipoDia = "HABIL" #No usar tildes. Se ve feo pero es mejor. Por eso se escibe el codigo fuente en ingles
+	tipoDia = "HABIL"
 	if dia in ["SABADO","DOMINGO"]:
 		tipoDia = "NOHABIL"
 
-	#Podria hacerse de muchas formas, pero yo voy a definir una llave compuesta asi:
 	key = tipoDia+"_"+direccion+"_"+nodo
 
 	if datos.get(key) is None:
@@ -73,23 +71,16 @@ def clasificaciondatos(matriz, dia, fecha, nodo, direccion, datos, head, colHora
 	entryFecha = entry[fecha]
 
 	for i in range(0, tamano):
-		#print i
-		#print type(matriz[i, colHora])
 		h = int(float(matriz[i, colHora])/100)
 		sentido = matriz[i][colSentido]
-		#Si no existe entrada para esta fecha y hora, creamos el objeto que la contendra
 		if entryFecha.get(h) is None:
 			entryFecha[h]={}
 			for j in range(colData, colObservaciones-1):
 				entryFecha[h][head[j]]=[]
-			#entryFecha[h]['TOTAL'] = []
 
 		for j in range(colData, colObservaciones-1):
 			entryFecha[h][head[j]].append(matriz[i][j])
-		#entryFecha[h]['TOTAL'].append('0')
-		
 
-		#Se saca el numero de sentidos contenidos en la colSentido
 		if sentido == '1.0': 
 			sent1 = 1
 		if sentido == '1B':
@@ -114,5 +105,3 @@ def clasificaciondatos(matriz, dia, fecha, nodo, direccion, datos, head, colHora
 		types = datosHora.keys()
 		for tipo in types:
 			datosHora[tipo] = eval('+'.join(datosHora[tipo]))/sentt
-
-	#print datos[tipoDia+"_"+direccion+"_"+nodo][fecha][0]

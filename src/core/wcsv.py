@@ -1,8 +1,9 @@
-#created by @ceapalaciosal
-#under code Creative Commons
 # -*- encoding: utf-8 -*-
 
 #! /usr/bin/env python
+#created by @ceapalaciosal
+#under code Creative Commons
+
 import csv
 import os
 import xlrd
@@ -10,8 +11,8 @@ import xlrd
 def writematriz(matriz, folder):
 
 	csvsalida = open(folder + ".csv", 'w')
-	salida = csv.writer(csvsalida, delimiter=',')#, quoting=csv.QUOTE_ALL
-
+	salida = csv.writer(csvsalida, delimiter=',')
+	
 	for x in range(0, matriz.shape[0]):
 		salida.writerow(matriz[x])
 
@@ -29,7 +30,6 @@ def writesum(data):
 	for ID in IDEstation: 
 
 		flujos = sorted(data[ID]['HABIL'].keys())
-		#print flujos
 
 		for veh in range(0, 3):
 			csvsalida.write(data[ID]['GENERAL'][veh])
