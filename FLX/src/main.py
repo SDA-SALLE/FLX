@@ -7,18 +7,18 @@ import sys
 import os
 sys.path.append('core')
 from clear import *
-from conversionExcelCSV import*
-from conversionCSVMatriz import*
+from ExcelCSV import*
+from CSVMatriz import*
 from disolver import*
 
-folder = os.path.join('..', 'out', '')
+folder = os.path.join('..', 'data','out', '')
 clear(folder)
 
 print ('Realizando Proceso para Fuentes Moviles')
-folder = os.path.join('..', 'data')
+folder = os.path.join('..', 'data', 'in', 'Flows', '')
 
 listaExcel (folder)
 listaCSV(folder)
-flows = os.path.join('..', 'out', 'promFinal.csv')
-category = os.path.join ('..', 'BD', 'CATEGORY.xlsx')
+flows = os.path.join('..', 'data', 'out', 'promFinal.csv')
+category = os.path.join ('..', 'data', 'in','Constants', 'CATEGORY.xlsx')
 disolver(flows, category)

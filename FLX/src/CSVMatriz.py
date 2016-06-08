@@ -1,15 +1,19 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*- 
+#!/usr/bin/env python
 
 #Created by @ceapalaciosal
 #Codigo bajo Creative Commons
 
-from clasificacion import *
-from wjsoncsv import *
 import csv
 import datetime
 import numpy as np
 import os
+import sys
+sys.path.append('core')
+from wcsv import *
+from clasificacion import *
+from wjsoncsv import *
+
 
 
 def listaCSV(direccion):
@@ -36,7 +40,6 @@ def listaCSV(direccion):
 		fechas = data[est].keys()
 		primerDia =  data[est][fechas[0]]
 
-		#print primerDia
 
 		for i in range(1, len(fechas)):
 			dataDia = data[est][fechas[i]]

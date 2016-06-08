@@ -12,13 +12,11 @@ import xlrd
 import datetime
 
 
-
 def readsum(workbook, direccioncsv):
 
 	days = {'MONDAY':'LUNES','TUESDAY':'MARTES','WEDNESDAY':'MIERCOLES','THURSDAY':'JUEVES','FRIDAY':'VIERNES','SATURDAY':'SABADO','SUNDAY':'DOMINGO'}
 
 	direccioncsv = os.path.join(direccioncsv,'')
-	#workbook = xlrd.open_workbook(direccion) #encoding_override="utf-8")
 
 	dh = workbook.sheet_by_index(0) #Numero de Sheet donde se encuentran los datos generales.
 	sh = workbook.sheet_by_index(1) #Numero de Sheet donde se encuentran los datos BASE
@@ -176,7 +174,7 @@ def listaExcel(direccion):
 	for root, dirs, files in lstDir:
 	    for fichero in files:
 	        (nombreFichero, extension) = os.path.splitext(fichero)
-	        if(extension == ".xlsm" or extension == ".xlsx"):
+	        if(extension == ".xlsx" or extension == ".xls"):
 	            lstFiles.append(nombreFichero+extension)
 
 	print "El numero de archivos en excel es: ", len(lstFiles)

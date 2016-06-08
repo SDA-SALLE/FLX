@@ -45,8 +45,6 @@ def disolver(flows, category):
 		category[flow][subflow] = []
 		category[flow][subflow].append(MCategory[i][2])
 
-	#print category
-
 	flows = {}
 	for i in range(1, Mflows.shape[0]):
 		key = int(Mflows[i][colIDEstation])
@@ -79,8 +77,6 @@ def disolver(flows, category):
 				entryflows[categories] = []
 			entryflows[categories].append(float(Mflows[i][x]))
 
-	#print flows
-	
 	keys = flows.keys()
 	for key in keys: 
 		Types =  flows[key]['Tipo'].keys()
