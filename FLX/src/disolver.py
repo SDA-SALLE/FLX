@@ -5,7 +5,7 @@
 #Codigo bajo Creative Commons
 import sys
 sys.path.append("core")
-from excelmatriz import *
+from matriz import *
 from wcsv import *
 import xlrd
 import json
