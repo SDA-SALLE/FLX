@@ -10,6 +10,7 @@ from clear import *
 from ExcelCSV import*
 from CSVMatriz import*
 from disolver import*
+from projection import *
 
 folder = os.path.join('..', 'data','out', '')
 clear(folder)
@@ -22,3 +23,11 @@ listaCSV(folder)
 flows = os.path.join('..', 'data', 'out', 'promFinal.csv')
 category = os.path.join ('..', 'data', 'in','Constants', 'CATEGORY.xlsx')
 disolver(flows, category)
+
+flows = os.path.join('..', 'data', 'out', 'promFinal.csv')
+projections = os.path.join('..', 'data','in', 'Projection', 'Resuspended_grow_factors.xlsx')
+projection(flows, projections, 0)
+
+flows = os.path.join('..', 'data', 'out', 'promFinal_2.csv')
+projections = os.path.join('..', 'data','in', 'Projection', 'Movile_grow_factors.xlsx')
+projection(flows, projections, 1)

@@ -137,17 +137,3 @@ def writeprojections(data, id):
 					csvsalida.write(',')
 					csvsalida.write(str(data[key]['Tipo'][Type]['hour'][hour][cat]))
 				csvsalida.write('\n')
-
-
-
-
-
-flows = os.path.join('..', 'data', 'out', 'promFinal.csv')
-projections = os.path.join('..', 'data','in', 'Projection', 'Resuspended_grow_factors.xlsx')
-projection(flows, projections, 0)
-
-flows = os.path.join('..', 'data', 'out', 'promFinal_2.csv')
-projections = os.path.join('..', 'data','in', 'Projection', 'Movile_grow_factors.xlsx')
-projection(flows, projections, 1)
-
-
