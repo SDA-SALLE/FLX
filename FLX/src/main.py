@@ -20,14 +20,14 @@ folder = os.path.join('..', 'data', 'in', 'Flows', '')
 
 listaExcel (folder)
 listaCSV(folder)
-flows = os.path.join('..', 'data', 'out', 'promFinal.csv')
+flows = os.path.join('..', 'data', 'out', 'RPM.csv')
 category = os.path.join ('..', 'data', 'in','Constants', 'CATEGORY.xlsx')
 disolver(flows, category)
 
-flows = os.path.join('..', 'data', 'out', 'promFinal.csv')
+flows = os.path.join('..', 'data', 'out', 'RPM.csv')
 projections = os.path.join('..', 'data','in', 'Projection', 'Resuspended_grow_factors.xlsx')
 projection(flows, projections, 0)
 
-flows = os.path.join('..', 'data', 'out', 'promFinal_2.csv')
+flows = os.path.join('..', 'data', 'out', 'MOB.csv')
 projections = os.path.join('..', 'data','in', 'Projection', 'Movile_grow_factors.xlsx')
 projection(flows, projections, 1)
