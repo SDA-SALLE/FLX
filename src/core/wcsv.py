@@ -47,15 +47,29 @@ def writematriz(matriz, folder):
 	
 # 	csvsalida.close()
 
-def writedisolver(data): 
+def writedisolver(data, Year): 
 	
 	folder = os.path.join('..', 'data','out', '')
-	csvsalida = open(folder + 'MOB.csv', 'w')
+	csvsalida = open(folder + 'MOB' + '_' + Year + '.csv', 'w')
 	salida = csv.writer(csvsalida, delimiter=',')
 
-	salida.writerow(['Estacion', 'Tipo', 'IDEstacion', 'IDNodo', 'hora', '>c5_Dsel', '>c5_GNV', '>c5_Gas', 'AL_Dsel', 'AT_Dsel', 'AUT_GNV', 'AUT_Gas', 'BA_Dsel', 'BT_Dsel', 'B_Dsel', 'C2G_Dsel', 'C2G_GNV', 'C2G_Gas', 'C2P_Dsel', 'C2P_GNV', 'C2P_Gas', 'C3-C4_Dsel', 'C3-C4_GNV', 'C3-C4_Gas', 'CC_Dsel', 'CC_GNV', 'CC_Gas', 'ESP_Dsel', 'ESP_GNV', 'ESP_Gas', 'INT_Dsel', 'INT_GNV', 'INT_Gas', 'MB_Dsel', 'M_Gas', 'TX_GNV', 'TX_Gas', 'c5_Dsel', 'c5_GNV', 'c5_Gas'])
-
+	Title1 = ['Estacion', 'Tipo', 'IDEstacion', 'IDNodo', 'hora']
+	#csvsalida.write() #'>C5_DSEL', '>C5_GNV', '>C5_Gas', 'AL_Dsel', 'AT_Dsel', 'AUT_GNV', 'AUT_Gas', 'BA_Dsel', 'BT_Dsel', 'B_Dsel', 'C2G_Dsel', 'C2G_GNV', 'C2G_Gas', 'C2P_Dsel', 'C2P_GNV', 'C2P_Gas', 'C3-C4_Dsel', 'C3-C4_GNV', 'C3-C4_Gas', 'CC_Dsel', 'CC_GNV', 'CC_Gas', 'ESP_Dsel', 'ESP_GNV', 'ESP_Gas', 'INT_Dsel', 'INT_GNV', 'INT_Gas', 'MB_Dsel', 'M_Gas', 'TX_GNV', 'TX_Gas', 'C5_Dsel', 'C5_GNV', 'C5_Gas'])
+	
 	keys = data.keys()
+	Title2 = sorted(data[keys[0]]['Tipo']['HABIL']['hora'][0]['new'])
+
+	Title = Title1 + Title2
+	for leter in Title:
+		if leter == Title[0]:
+			csvsalida.write(leter)
+		else: 
+			csvsalida.write(',')
+			csvsalida.write(leter)
+	csvsalida.write('\n')
+
+
+
 	for key in keys: 
 		Types = data[key]['Tipo'].keys()
 		for Type in Types: 
@@ -77,12 +91,12 @@ def writedisolver(data):
 					csvsalida.write(str(data[key]['Tipo'][Type]['hora'][hour]['new'][cat]))
 				csvsalida.write('\n')
 
-def write(datos, folder):
+def write(datos, folder, Year):
 
 	IDEstation = os.path.join('..', 'data', 'in', 'Constants','IDNodos.xlsx')
 	out = os.path.join('..', 'data', 'out', '')
 	IDEstation = convertXLSCSV(IDEstation)
-	csvsalida = open(out + 'RPM.csv', 'w')
+	csvsalida = open(out + 'RPM'+ '_' + Year + '.csv', 'w')
 	salida = csv.writer(csvsalida, delimiter=',')
 	salida.writerow(['Estacion','Tipo','IDEstacion','IDNodo', 'hora', '>C5', 'AL', 'AT', 'B', 'BA', 'BT', 'C', 'C2G', 'C2P', 'C3-C4', 'C5', 'ESP', 'INT', 'L', 'M', 'TOTAL'])
 

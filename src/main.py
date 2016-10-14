@@ -12,6 +12,11 @@ from CSVMatriz import*
 from disolver import*
 from projection import *
 
+print 'Insert information'
+Year = raw_input('Insert Year Flows:')
+YearProjection = raw_input('Insert Year Proyection:')
+
+
 folder = os.path.join('..', 'data','out', '')
 clear(folder)
 
@@ -19,15 +24,16 @@ print ('Realizando Proceso para Fuentes Moviles')
 folder = os.path.join('..', 'data', 'in', 'Flows', '')
 
 listaExcel (folder)
-listaCSV(folder)
-flows = os.path.join('..', 'data', 'out', 'RPM.csv')
+listaCSV(folder, Year)
+
+flows = os.path.join('..', 'data', 'out', 'RPM' + '_' + Year + '.csv')
 category = os.path.join ('..', 'data', 'in','Constants', 'CATEGORY.xlsx')
-disolver(flows, category)
+disolver(flows, category, Year)
 
-flows = os.path.join('..', 'data', 'out', 'RPM.csv')
+#flows = os.path.join('..', 'data', 'out', 'RPM.csv')
 projections = os.path.join('..', 'data','in', 'Projection', 'Resuspended_grow_factors.xlsx')
-projection(flows, projections, 0)
+projection(flows, projections, YearProjection , 0)
 
-flows = os.path.join('..', 'data', 'out', 'MOB.csv')
+flows = os.path.join('..', 'data', 'out', 'MOB' + '_' + Year + '.csv')
 projections = os.path.join('..', 'data','in', 'Projection', 'Movile_grow_factors.xlsx')
-projection(flows, projections, 1)
+projection(flows, projections,YearProjection , 1)

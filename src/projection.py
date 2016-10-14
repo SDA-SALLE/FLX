@@ -14,7 +14,7 @@ from CSVMatriz import*
 from disolver import*
 
 
-def projection(flows, projections, id):
+def projection(flows, projections, Year,id):
 
 	Mflows = convertCSVMatriz(flows)
 	MProjections = convertXLSCSV(projections)
@@ -81,40 +81,44 @@ def projection(flows, projections, id):
 			entryflows[categories].append(float(Mflows[i][x]))
 
 	keys = flows.keys()
+	#if id == 1:
+		#print flows
 	for key in keys:
 		Types = flows[key]['Tipo'].keys()
 		for Type in Types:
 			hours = flows[key]['Tipo'][Type]['hour'].keys()
 			for hour in hours:
 				categories = projection.keys()
+				#print categories
 				for category in categories:
 					#print category,'valor flow', flows[key]['Tipo'][Type]['hour'][hour][category][0], 'valor mult', projection[category], '',  projection[category] * flows[key]['Tipo'][Type]['hour'][hour][category][0]
-
 					mult = projection[category] * flows[key]['Tipo'][Type]['hour'][hour][category][0]
 					flows[key]['Tipo'][Type]['hour'][hour][category] = mult
 
-	writeprojections(flows, id)
+	writeprojections(flows, id, Year)
 
-def writeprojections(data, id):
+def writeprojections(data, id, Year):
 
 	folder = os.path.join('..', 'data','out', '')
+	keys = data.keys()
 	if id == 0:
-		csvsalida = open(folder + 'ProjectionRPM.csv', 'w')
+		csvsalida = open(folder + 'RPM' + '_' + Year + '.csv', 'w')
 		names = ['Estacion','Tipo','IDEstacion','IDNodo', 'hora', '>C5', 'AL', 'AT', 'B', 'BA', 'BT', 'C', 'C2G', 'C2P', 'C3-C4', 'C5', 'ESP', 'INT', 'L', 'M', 'TOTAL']
 		#print data
-	elif id == 1:
-		csvsalida = open(folder + 'ProjectionMOB.csv', 'w')
-		names = ['Estacion', 'Tipo', 'IDEstacion', 'IDNodo', 'hora', '>c5_Dsel', '>c5_GNV', '>c5_Gas', 'AL_Dsel', 'AT_Dsel', 'AUT_GNV', 'AUT_Gas', 'BA_Dsel', 'BT_Dsel', 'B_Dsel', 'C2G_Dsel', 'C2G_GNV', 'C2G_Gas', 'C2P_Dsel', 'C2P_GNV', 'C2P_Gas', 'C3-C4_Dsel', 'C3-C4_GNV', 'C3-C4_Gas', 'CC_Dsel', 'CC_GNV', 'CC_Gas', 'ESP_Dsel', 'ESP_GNV', 'ESP_Gas', 'INT_Dsel', 'INT_GNV', 'INT_Gas', 'MB_Dsel', 'M_Gas', 'TX_GNV', 'TX_Gas', 'c5_Dsel', 'c5_GNV', 'c5_Gas']
-		
 
-	
-	for name in names:
-		if name == names[0]:
-			csvsalida.write(name)
-		else:
-			csvsalida.write(',')
-			csvsalida.write(name)
-	csvsalida.write('\n')
+	elif id == 1:
+		csvsalida = open(folder + 'MOB' + '_' + Year + '.csv', 'w')
+		#names1 = ['Estacion', 'Tipo', 'IDEstacion', 'IDNodo', 'hora', '>C5_Dsel', '>C5_GNV', '>C5_Gas', 'AL_Dsel', 'AT_Dsel', 'AUT_GNV', 'AUT_Gas', 'BA_Dsel', 'BT_Dsel', 'B_Dsel', 'C2G_Dsel', 'C2G_GNV', 'C2G_Gas', 'C2P_Dsel', 'C2P_GNV', 'C2P_Gas', 'C3-C4_Dsel', 'C3-C4_GNV', 'C3-C4_Gas', 'CC_Dsel', 'CC_GNV', 'CC_Gas', 'ESP_Dsel', 'ESP_GNV', 'ESP_Gas', 'INT_Dsel', 'INT_GNV', 'INT_Gas', 'MB_Dsel', 'M_Gas', 'TX_GNV', 'TX_Gas', 'C5_Dsel', 'C5_GNV', 'C5_Gas']
+		names1 = ['Estacion', 'Tipo', 'IDEstacion', 'IDNodo', 'hora',]
+		names2 = sorted(data[keys[0]]['Tipo']['HABIL']['hour'][0])
+		names = names1 + names2
+		for name in names:
+			if name == names[0]:
+				csvsalida.write(name)
+			else:
+				csvsalida.write(',')
+				csvsalida.write(name)
+		csvsalida.write('\n')
 
 	keys = data.keys()
 	for key in keys:
@@ -132,8 +136,10 @@ def writeprojections(data, id):
 				csvsalida.write(',')
 				csvsalida.write(str(hour))
 				category = sorted(data[key]['Tipo'][Type]['hour'][hour].keys())
+				#print category
 				#category = sorted(category)
 				for cat in category:
 					csvsalida.write(',')
 					csvsalida.write(str(data[key]['Tipo'][Type]['hour'][hour][cat]))
+				#csvsalida.write('0')
 				csvsalida.write('\n')

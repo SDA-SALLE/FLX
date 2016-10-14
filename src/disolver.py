@@ -11,7 +11,7 @@ import xlrd
 import json
 
 
-def disolver(flows, category):
+def disolver(flows, category, Year):
 	MCategory = convertXLSCSV(category)
 	Mflows = convertCSVMatriz(flows)
 
@@ -43,8 +43,9 @@ def disolver(flows, category):
 		
 
 		category[flow][subflow] = []
-		category[flow][subflow].append(MCategory[i][2])
+		category[flow][subflow].append(float(MCategory[i][2]))
 
+	#print category
 	flows = {}
 	for i in range(1, Mflows.shape[0]):
 		key = int(Mflows[i][colIDEstation])
@@ -88,11 +89,12 @@ def disolver(flows, category):
 				for cat in categories:
 					#print cat
 					subcategory = category[cat].keys()
+					#print subcategory
 					for subcat in subcategory: 
-						flows[key]['Tipo'][Type]['hora'][hour]['new'][subcat] = []
-						flows[key]['Tipo'][Type]['hora'][hour]['new'][subcat] = float(flows[key]['Tipo'][Type]['hora'][hour]['old'][cat][0]) *  float(category[cat][subcat][0])
+						flows[key]['Tipo'][Type]['hora'][hour]['new'][subcat] = float(flows[key]['Tipo'][Type]['hora'][hour]['old'][cat][0]) * float(category[cat][subcat][0])
 
-	writedisolver(flows)
+	#print flows
+	writedisolver(flows, Year)
 
 	
 

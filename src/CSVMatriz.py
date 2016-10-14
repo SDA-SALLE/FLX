@@ -12,11 +12,11 @@ import sys
 sys.path.append('core')
 from wcsv import *
 from clasificacion import *
-from wjsoncsv import *
+from matriz import *
 
 
 
-def listaCSV(direccion):
+def listaCSV(direccion, Year):
 	path = os.path.join(direccion,'')
 
 	lstFilesEmissions = []
@@ -72,7 +72,7 @@ def listaCSV(direccion):
 
 		data[est] = primerDia
 
-	write(data, direccion)
+	write(data, direccion, Year)
 	
 
 def lectura(lstFilesEmissions, direccion, data):
