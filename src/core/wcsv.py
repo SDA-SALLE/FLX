@@ -122,11 +122,15 @@ def write(datos, folder, Year):
 			NNodo = int(float(IDEstation[pos][1]))
 			if int(NNodo) == int(IDNodo): 
 				NEstation = int(float(IDEstation[pos][0]))
-				break
+				#break
 
 			
 
 		hora = datos[est].keys()
+		
+		if len(hora) < 24: 
+			print 'WARNING! Revisar horas faltantes de la estacion', NEstation, 'Nodo', IDNodo
+
 		for hour in hora:
 			flujos = []
 			tipo = datos[est][hour].keys()
